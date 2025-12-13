@@ -48,8 +48,7 @@ export class Home implements AfterViewInit {
   ];
 
   testimonials = [
-    { quote: "An exceptional developer who delivers high-quality code on time.", author: "Jane Doe", role: "Product Manager" },
-    { quote: "Great attention to detail and a pleasure to work with.", author: "John Smith", role: "CTO" },
-    { quote: "Transformed our ideas into reality with amazing skill.", author: "Sarah Lee", role: "Founder" }
+    { quote: "Un gran tipo es muy estupido a la vez que inteligente", author: "Joshua", role: "Inutil Profesional" },
+    { quote: "I love that he hate peruavians is a good person.", author: "Nibirus", role: "Future CEO" },
   ];
 }
