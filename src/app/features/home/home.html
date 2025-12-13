@@ -1,0 +1,159 @@
+<div class="flex flex-col w-full overflow-hidden">
+
+    <!-- Hero Section -->
+    <section id="hero-section"
+        class="bg-gray-900 min-h-screen flex flex-col justify-center items-center text-center p-6 relative">
+        <div appRevealOnScroll class="reveal-on-scroll">
+            <h1 id="hero-text" class="mb-30 text-6xl font-extrabold text-white tracking-tight">
+                Hello, I'm
+            </h1>
+            <div id="hero-content" class="opacity-0">
+                <p class="text-2xl text-gray-400 mb-10 max-w-3xl leading-relaxed mx-auto">
+                    A creative Full Stack Developer crafting digital experiences that matter.
+                </p>
+                <div class="space-x-4">
+                    <a routerLink="/projects"
+                        class="bg-blue-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-blue-700 hover:shadow-xl transition transform hover:-translate-y-1 inline-block">View
+                        My Work</a>
+                    <a routerLink="/contact"
+                        class="bg-white border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-full font-semibold hover:border-blue-600 hover:text-blue-600 transition inline-block">Contact
+                        Me</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 animate-bounce">
+            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                </path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- About Preview Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0">
+                <!-- Placeholder for Profile Image -->
+                <div appRevealOnScroll
+                    class="w-64 h-64 bg-gray-200 rounded-full mx-auto md:mx-0 flex items-center justify-center text-gray-400 text-2xl font-bold shadow-inner reveal-roll">
+                    [Image]
+                </div>
+            </div>
+            <div appRevealOnScroll class="md:w-1/2 md:pl-12 reveal-on-scroll">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Who I Am</h2>
+                <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                    I am a passionate software engineer with a knack for solving complex problems.
+                    I specialize in building robust web applications using modern technologies.
+                    My journey started with a curiosity for how things work, and it has evolved into a career of
+                    continuous learning and creation.
+                </p>
+                <a routerLink="/about" class="text-blue-600 font-semibold hover:underline">Read more about me &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="py-20 bg-gray-50">
+        <div appRevealOnScroll class="container mx-auto px-6 text-center reveal-on-scroll">
+            <h2 class="text-3xl font-bold text-gray-900 mb-12">What I Do</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                @for (service of services; track service.title) {
+                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition card-hover">
+                    <div
+                        class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                [attr.d]="service.icon"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">{{ service.title }}</h3>
+                    <p class="text-gray-600">{{ service.description }}</p>
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Technologies Section -->
+    <section class="py-20 bg-white overflow-hidden">
+        <div appRevealOnScroll class="container mx-auto px-6 text-center reveal-on-scroll">
+            <h2 class="text-3xl font-bold text-gray-900 mb-12">Technologies</h2>
+
+            <div class="carousel-perspective">
+                <div class="carousel-track-container">
+                    <div class="carousel-track">
+                        <!-- First Set of Items -->
+                        <!-- First Set of Items -->
+                        @for (tech of technologies; track tech.name) {
+                        <div class="carousel-item group hover:scale-110 transition-transform duration-300">
+                            <img [src]="tech.logo" [alt]="tech.name"
+                                class="w-12 h-12 mb-2 filter grayscale group-hover:grayscale-0 transition duration-300">
+                            <span class="font-medium text-gray-500 group-hover:text-gray-900 text-sm transition">{{
+                                tech.name }}</span>
+                        </div>
+                        }
+                        <!-- Duplicate Set 2 -->
+                        @for (tech of technologies; track 'dup2-' + tech.name) {
+                        <div class="carousel-item group hover:scale-110 transition-transform duration-300">
+                            <img [src]="tech.logo" [alt]="tech.name"
+                                class="w-12 h-12 mb-2 filter grayscale group-hover:grayscale-0 transition duration-300">
+                            <span class="font-medium text-gray-500 group-hover:text-gray-900 text-sm transition">{{
+                                tech.name }}</span>
+                        </div>
+                        }
+                        <!-- Duplicate Set 3 -->
+                        @for (tech of technologies; track 'dup3-' + tech.name) {
+                        <div class="carousel-item group hover:scale-110 transition-transform duration-300">
+                            <img [src]="tech.logo" [alt]="tech.name"
+                                class="w-12 h-12 mb-2 filter grayscale group-hover:grayscale-0 transition duration-300">
+                            <span class="font-medium text-gray-500 group-hover:text-gray-900 text-sm transition">{{
+                                tech.name }}</span>
+                        </div>
+                        }
+                        <!-- Duplicate Set 4 -->
+                        @for (tech of technologies; track 'dup4-' + tech.name) {
+                        <div class="carousel-item group hover:scale-110 transition-transform duration-300">
+                            <img [src]="tech.logo" [alt]="tech.name"
+                                class="w-12 h-12 mb-2 filter grayscale group-hover:grayscale-0 transition duration-300">
+                            <span class="font-medium text-gray-500 group-hover:text-gray-900 text-sm transition">{{
+                                tech.name }}</span>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-20 bg-blue-600 text-white">
+        <div appRevealOnScroll class="container mx-auto px-6 text-center reveal-on-scroll">
+            <h2 class="text-3xl font-bold mb-12">Testimonials</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                @for (item of testimonials; track item.author) {
+                <div class="bg-blue-700 p-8 rounded-xl shadow-lg">
+                    <p class="italic text-lg mb-6">"{{ item.quote }}"</p>
+                    <h4 class="font-bold">{{ item.author }}</h4>
+                    <span class="text-blue-200 text-sm">{{ item.role }}</span>
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-gray-900 text-center text-white">
+        <div appRevealOnScroll class="container mx-auto px-6 reveal-on-scroll">
+            <h2 class="text-4xl font-bold mb-6">Let's Work Together</h2>
+            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
+                Have a project in mind? Let's discuss how we can bring your vision to life.
+            </p>
+            <a routerLink="/contact"
+                class="bg-blue-600 text-white px-10 py-4 rounded-full font-bold hover:bg-blue-400 transition">Get In
+                Touch</a>
+        </div>
+    </section>
+
+</div>
