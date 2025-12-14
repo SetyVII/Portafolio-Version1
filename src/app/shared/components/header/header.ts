@@ -1,14 +1,15 @@
 import { Component, signal, AfterViewInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
-import { RouterLink, Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { ContentService } from '../../../core/services/content.service';
 
 @Component({
   selector: 'app-header',
-  imports: [RouterLink, CommonModule],
+  imports: [CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
@@ -18,11 +19,16 @@ export class Header implements AfterViewInit, OnDestroy {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private router: Router
+    private router: Router,
+    private contentService: ContentService
   ) {
     if (isPlatformBrowser(this.platformId)) {
       gsap.registerPlugin(ScrollTrigger);
     }
+  }
+
+  toggleLang() {
+    this.contentService.toggleLanguage();
   }
 
   toggleMenu() {
@@ -101,10 +107,13 @@ export class Header implements AfterViewInit, OnDestroy {
     );
 
     // Name Animation: From Hero (Center, Huge) to Header (Center, Normal)
+    const isMobile = window.innerWidth < 700;
+    const startScale = isMobile ? 2.0 : 4.0;
+
     tl.fromTo("#hero-name",
       {
-        top: "40vh", // Start lower in the hero
-        scale: 4.0, // Massive
+        top: "39vh", // Start lower in the hero
+        scale: startScale, // Responsive Scale
         color: "#ffffff",
         textShadow: "0 0 20px rgba(255,255,255,0.5)"
       },
