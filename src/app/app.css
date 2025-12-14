@@ -1,2 +1,109 @@
 /* Global app styles */
-@import url('https://fonts.googleapis.com/css2?family=Quintessential&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quintessential&family=Inter:wght@300;400;600&display=swap');
+@import "tailwindcss";
+
+body {
+    background-color: #050505;
+    /* Deepest black for outer body */
+    color: #dedede;
+    /* Off-white for contrast */
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.display-font {
+    font-family: 'Quintessential', cursive;
+}
+
+/* Custom Selection */
+::selection {
+    background: #991b1b;
+    color: #fff;
+}
+
+/* --- Boxed Layout Container (Removed for Full Width) --- */
+.app-container {
+    max-width: 100%;
+    margin: 0;
+    min-height: 100vh;
+    position: relative;
+    /* Borders and shadow removed for full usage */
+}
+
+/* --- Utilities --- */
+.text-huge {
+    font-size: clamp(4rem, 15vw, 12rem);
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+}
+
+/* Ticker Tape Animation */
+.ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.ticker {
+    display: inline-block;
+    animation: marquee 30s linear infinite;
+}
+
+.ticker-item {
+    display: inline-block;
+    padding: 0 4rem;
+    font-family: 'Quintessential', cursive;
+    font-size: 4rem;
+    opacity: 0.2;
+    transition: opacity 0.3s;
+}
+
+.ticker-item:hover {
+    opacity: 1;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Project List Item Reveal */
+.project-item {
+    border-top: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.project-item:hover {
+    background-color: #dedede;
+    color: #0a0a0a;
+    /* Invert text on hover */
+    padding-left: 2rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #991b1b;
+}

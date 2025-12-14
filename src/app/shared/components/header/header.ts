@@ -65,7 +65,7 @@ export class Header implements AfterViewInit, OnDestroy {
     gsap.set("#hero-name", {
       top: "50%",
       scale: 1,
-      color: "#ffffff"
+      color: "#dedede"
     });
 
     gsap.set(["#nav-left", "#nav-right"], {
@@ -85,34 +85,34 @@ export class Header implements AfterViewInit, OnDestroy {
       }
     });
 
-    // Hero Background Animation: Black -> White
-    // Ensure initial state is set first
-    gsap.set("#hero-section", { backgroundColor: "#111827" });
+    // Hero Background Animation: Deep Black -> Matte Black (Subtle)
+    gsap.set("#hero-section", { backgroundColor: "#050505" });
     tl.fromTo("#hero-section",
-      { backgroundColor: "#111827" }, // gray-900
-      { backgroundColor: "#f3f4f6" }  // gray-100
+      { backgroundColor: "#050505" },
+      { backgroundColor: "#0a0a0a" }
     );
 
-    // Hero "Hello, I'm" Text Animation: White -> Black
+    // Hero "Hello" Text: Remains White/Gray, maybe fades out?
+    // Let's keep it static or subtle fade to avoid coloring issues
     gsap.set("#hero-text", { color: "#ffffff" });
-    tl.fromTo("#hero-text",
-      { color: "#ffffff" },
-      { color: "#111827" },
+    tl.to("#hero-text",
+      { opacity: 0, scale: 0.9 }, // Fade out slightly as we scroll
       "<"
     );
 
-    // Name Animation: From Hero (Center, White, Large) to Header (Center, White, Normal)
-    // Note: Name stays White because it lands on the Dark Header
+    // Name Animation: From Hero (Center, Huge) to Header (Center, Normal)
     tl.fromTo("#hero-name",
       {
-        top: "50vh",
-        scale: 2.0,
-        color: "#ffffff", // White on Black Hero
+        top: "40vh", // Start lower in the hero
+        scale: 4.0, // Massive
+        color: "#ffffff",
+        textShadow: "0 0 20px rgba(255,255,255,0.5)"
       },
       {
         top: "50%",
         scale: 1,
-        color: "#ffffff", // White on Gray-800 Header
+        color: "#dedede",
+        textShadow: "none"
       },
       "<"
     );
@@ -129,5 +129,20 @@ export class Header implements AfterViewInit, OnDestroy {
       { x: "0%", opacity: 1 },
       "<"
     );
+  }
+
+  scrollTo(elementId: string): void {
+    if (elementId === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const element = document.getElementById(elementId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+    // Close mobile menu if open
+    if (this.isMenuOpen()) {
+      this.toggleMenu();
+    }
   }
 }

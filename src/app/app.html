@@ -1,7 +1,10 @@
-<div class="flex flex-col min-h-screen">
-  <app-header></app-header>
-  <main class="grow pt-24">
-    <router-outlet></router-outlet>
-  </main>
-  <app-footer></app-footer>
+<div class="flex flex-col min-h-screen relative z-0">
+  <!-- Boxed Layout Wrapper -->
+  <div class="app-container flex flex-col min-h-screen w-full relative z-10">
+    <app-header></app-header>
+    <main class="grow pt-24">
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer></app-footer>
+  </div>
 </div>

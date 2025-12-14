@@ -1,123 +1,133 @@
 <div class="flex flex-col w-full overflow-hidden">
 
-    <!-- Hero Section -->
-    <section id="hero-section"
-        class="bg-gray-900 min-h-screen flex flex-col justify-center items-center text-center p-6 relative">
-        <div appRevealOnScroll class="reveal-on-scroll">
-            <h1 id="hero-text" class="mb-30 text-6xl font-extrabold text-white tracking-tight">
-                Hello, I'm
-            </h1>
-            <div id="hero-content" class="opacity-0">
-                <p class="text-2xl text-gray-400 mb-10 max-w-3xl leading-relaxed mx-auto">
-                    A creative Full Stack Developer crafting digital experiences that matter.
+    <!-- Brutalist Hero Section -->
+    <section id="hero-section" class="min-h-screen flex flex-col justify-center px-6 md:px-12 relative pt-20">
+        <div class="grid grid-cols-12 gap-8 items-end">
+            <div class="col-span-12 md:col-span-9 z-10">
+                <h1 id="hero-text"
+                    class="text-huge font-bold leading-none tracking-tighter mix-blend-difference mb-8 text-white">
+                    HELLO<br>I'M SETY
+                </h1>
+                <p class="text-xl md:text-3xl font-light text-gray-400 max-w-2xl ml-2 border-l-2 border-red-800 pl-6">
+                    Full Stack Developer & <br> PASSIONATE ABOUT CODING.
                 </p>
-                <div class="space-x-4">
-                    <a routerLink="/projects"
-                        class="bg-blue-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:bg-blue-700 hover:shadow-xl transition transform hover:-translate-y-1 inline-block">View
-                        My Work</a>
-                    <a routerLink="/contact"
-                        class="bg-white border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-full font-semibold hover:border-blue-600 hover:text-blue-600 transition inline-block">Contact
-                        Me</a>
+            </div>
+            <!-- Asymmetric Image Placement -->
+            <div class="col-span-12 md:col-span-3 hidden md:block opacity-50 mix-blend-luminosity">
+                <!-- Image Roll Effect Restored -->
+                <div appRevealOnScroll class="reveal-roll">
+                    <img src="yanami.jpg" alt="Profile"
+                        class="w-full h-auto grayscale contrast-125 brightness-75 rounded-full border-4 border-[#0a0a0a]">
                 </div>
             </div>
         </div>
 
         <!-- Scroll Indicator -->
-        <div class="absolute bottom-10 animate-bounce">
-            <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3">
-                </path>
-            </svg>
+        <div class="absolute bottom-10 left-6 md:left-12 flex items-center space-x-4">
+            <span class="text-sm font-mono tracking-widest uppercase text-gray-500">Scroll to Explore</span>
+            <div class="h-px w-20 bg-gray-700"></div>
         </div>
     </section>
 
-    <!-- About Preview Section -->
-    <section class="py-20 bg-white">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <!-- Placeholder for Profile Image -->
-                <div appRevealOnScroll
-                    class="w-64 h-64 bg-gray-200 rounded-full mx-auto md:mx-0 flex items-center justify-center text-gray-400 text-2xl font-bold shadow-inner reveal-roll overflow-hidden">
-                    <img src="yanami.jpg" alt="yanami" class="w-full h-full object-cover">
+    <!-- Brutalist About Section -->
+    <section id="about" class="py-40 px-6 md:px-12 bg-[#050505] border-t border-white/5">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+            <div>
+                <h2 class="text-6xl md:text-8xl font-thin text-white mb-12">Who am<br><span
+                        class="font-bold text-gray-500">I?</span></h2>
+                <div class="text-xl md:text-2xl text-gray-400 leading-relaxed font-light space-y-8">
+                    <p>
+                        I am a <strong class="text-white">software engineer</strong> obsessed with structure,
+                        performance, and aesthetic perfection.
+                    </p>
+                    <p>
+                        I don't just write code; I build <span class="text-red-800">digital architectures</span> that
+                        stand the test of scale and time. My approach is rooted in minimalism—stripping away the
+                        non-essential to reveal the powerful core of an application.
+                    </p>
                 </div>
-            </div>
-            <div appRevealOnScroll class="md:w-1/2 md:pl-12 reveal-on-scroll">
-                <h2 class="text-3xl font-bold text-gray-900 mb-6">Who I Am</h2>
-                <p class="text-gray-600 text-lg leading-relaxed mb-6">
-                    I am a passionate software engineer with a knack for solving complex problems.
-                    I specialize in building robust web applications using modern technologies.
-                    My journey started with a curiosity for how things work, and it has evolved into a career of
-                    continuous learning and creation.
-                </p>
-                <a routerLink="/about" class="text-blue-600 font-semibold hover:underline">Read more about me &rarr;</a>
-            </div>
-        </div>
-    </section>
 
-    <!-- Services Section -->
-    <section class="py-20 bg-gray-50">
-        <div appRevealOnScroll class="container mx-auto px-6 text-center reveal-on-scroll">
-            <h2 class="text-3xl font-bold text-gray-900 mb-12">What I Do</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                @for (service of services; track service.title) {
-                <div class="bg-white p-8 rounded-xl shadow-sm hover:shadow-md transition card-hover">
-                    <div
-                        class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                [attr.d]="service.icon"></path>
-                        </svg>
+                <div class="mt-16 grid grid-cols-2 gap-8 font-mono text-sm text-gray-500">
+                    <div>
+                        <span class="block text-gray-700 mb-1">LOCATION</span>
+                        <span class="text-white">MADRID, SPAIN</span>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-3">{{ service.title }}</h3>
-                    <p class="text-gray-600">{{ service.description }}</p>
+                    <div>
+                        <span class="block text-gray-700 mb-1">EXPERIENCE</span>
+                        <span class="text-white">CURRENTLY A STUDENT</span>
+                    </div>
+                    <div>
+                        <span class="block text-gray-700 mb-1">FOCUS</span>
+                        <span class="text-white">Full Stack</span>
+                    </div>
+                    <div>
+                        <span class="block text-gray-700 mb-1">STATUS</span>
+                        <span class="text-green-500 flex items-center gap-2"><span
+                                class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Available</span>
+                    </div>
                 </div>
-                }
+            </div>
+
+            <!-- Decorative / Image Side -->
+            <div class="relative flex flex-col justify-end min-h-[400px]">
+                <!-- Split Logo Visual -->
+                <div class="absolute inset-0 bottom-20 flex justify-center items-center">
+                    <div class="relative w-full h-full max-w-md mx-auto">
+                        <!-- Angular (Left Side) - Luminous White Background -->
+                        <div class="absolute inset-0 bg-white flex items-center justify-center overflow-hidden"
+                            style="clip-path: polygon(0 0, 60% 0, 40% 100%, 0 100%);">
+                            <!-- Subtle Warm Glow -->
+                            <div class="absolute inset-0 bg-gradient-to-br from-red-500/10 to-transparent"></div>
+                            <img src="https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/angular.svg"
+                                class="w-40 h-40 filter drop-shadow-xl transform -translate-x-4 transition-all duration-500 hover:scale-110">
+                        </div>
+
+                        <!-- Java (Right Side) - Luminous White Background -->
+                        <div class="absolute inset-0 bg-white flex items-center justify-center overflow-hidden"
+                            style="clip-path: polygon(60% 0, 100% 0, 100% 100%, 40% 100%);">
+                            <!-- Subtle Cool Glow -->
+                            <div class="absolute inset-0 bg-gradient-to-bl from-blue-500/10 to-transparent"></div>
+                            <!-- Correct Java Logo (Coffee Cup) -->
+                            <img src="https://www.vectorlogo.zone/logos/java/java-icon.svg"
+                                class="w-40 h-40 filter drop-shadow-xl transform translate-x-4 transition-all duration-500 hover:scale-110">
+                        </div>
+
+                        <!-- Diagonal Line divider (Dark to contrast with light bg) -->
+
+                    </div>
+                </div>
+
+                <div
+                    class="border-b border-gray-800 pb-2 mb-2 flex justify-between items-end relative z-10 bg-[#050505]/50 backdrop-blur-sm">
+                    <span class="font-mono text-xs text-gray-600">CURRENTLY HACKING ON:</span>
+                    <span class="font-mono text-xs text-white">ANGULAR / JAVA</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Technologies Section -->
-    <section class="py-20 bg-white overflow-hidden">
-        <div appRevealOnScroll class="container mx-auto px-6 text-center reveal-on-scroll">
-            <h2 class="text-3xl font-bold text-gray-900 mb-12">Technologies</h2>
-
+    <!-- 3D Carousel Technology Section (Restored) -->
+    <section class="py-20 bg-[#050505] overflow-hidden">
+        <div class="container mx-auto px-6 text-center">
             <div class="carousel-perspective">
                 <div class="carousel-track-container">
                     <div class="carousel-track">
-                        <!-- First Set of Items -->
-                        <!-- First Set of Items -->
                         @for (tech of technologies; track tech.name) {
-                        <div class="carousel-item group hover:scale-110 transition-transform duration-300">
+                        <div
+                            class="carousel-item group hover:scale-110 transition-transform duration-300 bg-[#0a0a0a] border border-[#222]">
                             <img [src]="tech.logo" [alt]="tech.name"
                                 class="w-12 h-12 mb-2 filter grayscale group-hover:grayscale-0 transition duration-300">
-                            <span class="font-medium text-gray-500 group-hover:text-gray-900 text-sm transition">{{
+                            <span class="font-medium text-gray-500 group-hover:text-white text-sm transition">{{
                                 tech.name }}</span>
                         </div>
                         }
-                        <!-- Duplicate Set 2 -->
-                        @for (tech of technologies; track 'dup2-' + tech.name) {
-                        <div class="carousel-item group hover:scale-110 transition-transform duration-300">
+                        <!-- Duplicate Set for Scroll -->
+                        @for (tech of technologies; track 'dup-' + tech.name) {
+                        <div
+                            class="carousel-item group hover:scale-110 transition-transform duration-300 bg-[#0a0a0a] border border-[#222]">
                             <img [src]="tech.logo" [alt]="tech.name"
                                 class="w-12 h-12 mb-2 filter grayscale group-hover:grayscale-0 transition duration-300">
-                            <span class="font-medium text-gray-500 group-hover:text-gray-900 text-sm transition">{{
-                                tech.name }}</span>
-                        </div>
-                        }
-                        <!-- Duplicate Set 3 -->
-                        @for (tech of technologies; track 'dup3-' + tech.name) {
-                        <div class="carousel-item group hover:scale-110 transition-transform duration-300">
-                            <img [src]="tech.logo" [alt]="tech.name"
-                                class="w-12 h-12 mb-2 filter grayscale group-hover:grayscale-0 transition duration-300">
-                            <span class="font-medium text-gray-500 group-hover:text-gray-900 text-sm transition">{{
-                                tech.name }}</span>
-                        </div>
-                        }
-                        <!-- Duplicate Set 4 -->
-                        @for (tech of technologies; track 'dup4-' + tech.name) {
-                        <div class="carousel-item group hover:scale-110 transition-transform duration-300">
-                            <img [src]="tech.logo" [alt]="tech.name"
-                                class="w-12 h-12 mb-2 filter grayscale group-hover:grayscale-0 transition duration-300">
-                            <span class="font-medium text-gray-500 group-hover:text-gray-900 text-sm transition">{{
+                            <span class="font-medium text-gray-500 group-hover:text-white text-sm transition">{{
                                 tech.name }}</span>
                         </div>
                         }
@@ -127,33 +137,101 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="py-20 bg-blue-600 text-white">
-        <div appRevealOnScroll class="container mx-auto px-6 text-center reveal-on-scroll">
-            <h2 class="text-3xl font-bold mb-12">Testimonials</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                @for (item of testimonials; track item.author) {
-                <div class="bg-blue-700 p-8 rounded-xl shadow-lg">
-                    <p class="italic text-lg mb-6">"{{ item.quote }}"</p>
-                    <h4 class="font-bold">{{ item.author }}</h4>
-                    <span class="text-blue-200 text-sm">{{ item.role }}</span>
+    <!-- Minimalist Projects List -->
+    <section id="projects" class="py-32 px-6 md:px-12 bg-[#050505] scroll-mt-20">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-20">
+            <h2 class="text-6xl md:text-8xl font-thin tracking-tight text-white">SELECTED<br>WORK</h2>
+            <span class="text-sm font-mono text-gray-500 mb-4">(2023 — PRESENT)</span>
+        </div>
+
+        <div class="flex flex-col">
+            <!-- Project 1 -->
+            <div
+                class="project-item group relative py-12 cursor-pointer border-t border-gray-800 flex flex-col md:flex-row gap-8 md:items-center">
+                <!-- Large Thumbnail -->
+                <img src="https://placehold.co/400x250/222/FFF?text=Shop" alt="Preview"
+                    class="w-full md:w-64 h-40 object-cover grayscale group-hover:grayscale-0 transition-all rounded hidden md:block opacity-60 group-hover:opacity-100 shadow-lg">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-baseline">
+                        <h3
+                            class="text-3xl md:text-5xl font-bold text-gray-300 group-hover:text-red-900 transition-colors">
+                            01. E-Commerce Platform</h3>
+                        <span class="hidden md:block font-mono text-sm text-gray-500">ANGULAR / SPRING BOOT</span>
+                    </div>
+                    <p class="mt-4 text-gray-500 max-w-xl group-hover:text-white transition-colors text-lg">A
+                        full-featured
+                        shopping platform engineered for scalability.</p>
                 </div>
-                }
+            </div>
+
+            <!-- Project 2 -->
+            <div
+                class="project-item group relative py-12 cursor-pointer border-t border-gray-800 flex flex-col md:flex-row gap-8 md:items-center">
+                <img src="https://placehold.co/400x250/222/FFF?text=Task" alt="Preview"
+                    class="w-full md:w-64 h-40 object-cover grayscale group-hover:grayscale-0 transition-all rounded hidden md:block opacity-60 group-hover:opacity-100 shadow-lg">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-baseline">
+                        <h3
+                            class="text-3xl md:text-5xl font-bold text-gray-300 group-hover:text-red-900 transition-colors">
+                            02. Task Manager</h3>
+                        <span class="hidden md:block font-mono text-sm text-gray-500">REACT / NODE.JS</span>
+                    </div>
+                    <p class="mt-4 text-gray-500 max-w-xl group-hover:text-white transition-colors text-lg">Real-time
+                        collaboration tool using WebSockets.</p>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div
+                class="project-item group relative py-12 cursor-pointer border-t border-gray-800 flex flex-col md:flex-row gap-8 md:items-center">
+                <img src="https://placehold.co/400x250/222/FFF?text=Port" alt="Preview"
+                    class="w-full md:w-64 h-40 object-cover grayscale group-hover:grayscale-0 transition-all rounded hidden md:block opacity-60 group-hover:opacity-100 shadow-lg">
+                <div class="flex-grow">
+                    <div class="flex justify-between items-baseline">
+                        <h3
+                            class="text-3xl md:text-5xl font-bold text-gray-300 group-hover:text-red-900 transition-colors">
+                            03. Portfolio v1</h3>
+                        <span class="hidden md:block font-mono text-sm text-gray-500">HTML / CSS</span>
+                    </div>
+                    <p class="mt-4 text-gray-500 max-w-xl group-hover:text-white transition-colors text-lg">The
+                        foundation of my
+                        digital identity.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Call to Action -->
-    <section class="py-20 bg-gray-900 text-center text-white">
-        <div appRevealOnScroll class="container mx-auto px-6 reveal-on-scroll">
-            <h2 class="text-4xl font-bold mb-6">Let's Work Together</h2>
-            <p class="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-                Have a project in mind? Let's discuss how we can bring your vision to life.
-            </p>
-            <a routerLink="/contact"
-                class="bg-blue-600 text-white px-10 py-4 rounded-full font-bold hover:bg-blue-400 transition">Get In
-                Touch</a>
+    <!-- Brutalist Contact Footer -->
+    <section id="contact"
+        class="min-h-[80vh] flex flex-col justify-center items-center bg-[#050505] text-center px-6 relative overflow-hidden">
+        <p class="text-sm font-mono text-gray-500 mb-8 uppercase tracking-widest">Have an idea?</p>
+        <a href="mailto:contact@sety.dev"
+            class="text-huge leading-none font-bold text-white hover:text-red-900 transition-colors duration-500 cursor-pointer z-10 mix-blend-difference">
+            LET'S<br>TALK
+        </a>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-12 mt-20 z-10 w-full max-w-5xl mx-auto">
+            @for (item of contactInfo; track item.platform) {
+            <a [href]="item.link" target="_blank" class="flex flex-col items-center group">
+                <!-- Massive Icon on Top -->
+                <div
+                    class="mb-6 text-gray-600 group-hover:text-red-500 transition-colors transform group-hover:scale-110 duration-300">
+                    <svg class="w-20 h-20" fill="currentColor" viewBox="0 0 24 24">
+                        <path [attr.d]="item.icon"></path>
+                    </svg>
+                </div>
+                <span
+                    class="text-2xl font-bold text-gray-300 border-b-2 border-transparent group-hover:border-red-800 transition-all">{{
+                    item.platform }}</span>
+            </a>
+            }
         </div>
+
+        <!-- Giant background accent -->
+        <h1
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[20vw] font-bold text-[#0a0a0a] select-none pointer-events-none z-0">
+            CONTACT
+        </h1>
     </section>
 
 </div>
