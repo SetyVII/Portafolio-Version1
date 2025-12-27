@@ -144,22 +144,22 @@ export class ContentService {
             items: [
                 {
                     number: "01.",
-                    title: "E-Commerce Platform",
-                    stack: "ANGULAR / SPRING BOOT",
-                    description: "A full-featured shopping platform engineered for scalability.",
-                    image: "https://placehold.co/400x250/222/FFF?text=Shop"
+                    title: "API REST",
+                    stack: "SPRING BOOT",
+                    description: "API REST for the management of weather data and movement on Madrid.",
+                    image: "https://placehold.co/400x250/222/FFF?text=API"
                 },
                 {
                     number: "02.",
-                    title: "Task Manager",
-                    stack: "REACT / NODE.JS",
-                    description: "Real-time collaboration tool using WebSockets.",
-                    image: "https://placehold.co/400x250/222/FFF?text=Task"
+                    title: "Binary Communication    ",
+                    stack: "JAVA",
+                    description: "Binary Communication for Diferent Processes using Sockets.",
+                    image: "https://placehold.co/400x250/222/FFF?text=Socket"
                 },
                 {
                     number: "03.",
                     title: "Portfolio v1",
-                    stack: "HTML / CSS",
+                    stack: "ANGULAR / HTML / CSS",
                     description: "The foundation of my digital identity.",
                     image: "https://placehold.co/400x250/222/FFF?text=Port"
                 }
@@ -205,17 +205,17 @@ export class ContentService {
             items: [
                 {
                     number: "01.",
-                    title: "Plataforma E-Commerce",
-                    stack: "ANGULAR / SPRING BOOT",
-                    description: "Una plataforma de compras completa diseñada para la escalabilidad.",
-                    image: "https://placehold.co/400x250/222/FFF?text=Shop"
+                    title: "API REST",
+                    stack: "SPRING BOOT",
+                    description: "API REST para la gestion de datos meteorologicos y movimientos de autobuses en Madrid.",
+                    image: "https://placehold.co/400x250/222/FFF?text=API"
                 },
                 {
                     number: "02.",
-                    title: "Gestor de Tareas",
-                    stack: "REACT / NODE.JS",
-                    description: "Herramienta de colaboración en tiempo real usando WebSockets.",
-                    image: "https://placehold.co/400x250/222/FFF?text=Task"
+                    title: "Comunicacion de diferentes procesos",
+                    stack: "JAVA",
+                    description: "Comunicacion de diferentes procesos  a traves de sockets con diferentes procesos.",
+                    image: "https://placehold.co/400x250/222/FFF?text=Socket"
                 },
                 {
                     number: "03.",
