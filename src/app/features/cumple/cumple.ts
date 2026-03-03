@@ -1,38 +1,67 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cumple',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './cumple.html',
   styleUrls: ['./cumple.css']
 })
-export class Cumple implements OnInit, OnDestroy {
-  particles: { id: number; left: number; delay: number }[] = [];
-  particleCount = 50;
-  private particleIdCounter = 0;
-
+export class Cumple implements OnInit {
+  password: string = '';
+  isUnlocked: boolean = false;
+  errorMessage: string = '';
+  specialKey: string = 'EliabeOlah'; // Clave especial - Nombre del cumpleañero
+  matrixChars: string = '01アウェイ';
+  displayText: string = '';
+  giftCode: string = 'GIFT-' + Math.random().toString(36).substring(2, 15).toUpperCase().slice(0, 12);
+  copyFeedback: string = '';
+  
   ngOnInit(): void {
-    this.generateParticles();
+    this.startMatrixEffect();
   }
 
-  ngOnDestroy(): void {
-    this.particles = [];
-  }
-
-  private generateParticles(): void {
-    for (let i = 0; i < this.particleCount; i++) {
-      this.particles.push({
-        id: this.particleIdCounter++,
-        left: Math.random() * 100,
-        delay: Math.random() * 2
-      });
+  verifyPassword(): void {
+    if (this.password === this.specialKey) {
+      this.isUnlocked = true;
+      this.errorMessage = '';
+    } else {
+      this.errorMessage = '❌ Acceso denegado. Contraseña incorrecta.';
+      this.password = '';
     }
   }
 
-  getParticleEmoji(): string {
-    const emojis = ['🎉', '🎊', '🎈', '🎁', '⭐', '✨'];
-    return emojis[Math.floor(Math.random() * emojis.length)];
+  handleKeyPress(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.verifyPassword();
+    }
+  }
+
+  copyToClipboard(): void {
+    navigator.clipboard.writeText(this.giftCode).then(() => {
+      this.copyFeedback = '✓ Código copiado al portapapeles';
+      setTimeout(() => {
+        this.copyFeedback = '';
+      }, 2000);
+    }).catch(() => {
+      this.copyFeedback = '✗ Error al copiar';
+      setTimeout(() => {
+        this.copyFeedback = '';
+      }, 2000);
+    });
+  }
+
+  private startMatrixEffect(): void {
+    let index = 0;
+    const text = 'SISTEMA DE CELEBRACIÓN ACTIVADO...';
+    setInterval(() => {
+      if (index < text.length) {
+        this.displayText += text[index];
+        index++;
+      }
+    }, 50);
   }
 }
+
