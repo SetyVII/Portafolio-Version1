@@ -20,51 +20,55 @@ describe('Cumple', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize with locked state', () => {
-    expect(component.isUnlocked).toBeFalse();
+  it('should initialize with home section', () => {
+    expect(component.activeSection).toBe('home');
   });
 
-  it('should unlock with correct password', () => {
-    component.password = 'EliabeOlah';
-    component.verifyPassword();
-    expect(component.isUnlocked).toBeTrue();
+  it('should execute ls command', () => {
+    component.commandInput = 'ls';
+    component.executeCommand();
+
+    expect(component.activeSection).toBe('home');
+    expect(component.terminalLogs.at(-1)).toContain('clave');
   });
 
-  it('should show error message with incorrect password', () => {
-    component.password = 'wrongpassword';
-    component.verifyPassword();
-    expect(component.isUnlocked).toBeFalse();
-    expect(component.errorMessage).toContain('Acceso denegado');
+  it('should navigate to clave section with cd clave', () => {
+    component.commandInput = 'cd clave';
+    component.executeCommand();
+
+    expect(component.activeSection).toBe('clave');
   });
 
-  it('should clear password on incorrect attempt', () => {
-    component.password = 'wrongpassword';
-    component.verifyPassword();
-    expect(component.password).toBe('');
+  it('should navigate to mensaje section with cd mensaje', () => {
+    component.commandInput = 'cd mensaje';
+    component.executeCommand();
+
+    expect(component.activeSection).toBe('mensaje');
   });
 
-  it('should generate matrix text on init', () => {
-    expect(component.displayText.length).toBeGreaterThan(0);
+  it('should navigate to piano section with cd piano', () => {
+    component.commandInput = 'cd piano';
+    component.executeCommand();
+
+    expect(component.activeSection).toBe('piano');
   });
 
-  it('should generate a gift code on init', () => {
-    expect(component.giftCode).toBeTruthy();
-    expect(component.giftCode.startsWith('GIFT-')).toBeTrue();
+  it('should keep section for unknown commands and log error', () => {
+    const currentSection = component.activeSection;
+    component.commandInput = 'invalid';
+    component.executeCommand();
+
+    expect(component.activeSection).toBe(currentSection);
+    expect(component.terminalLogs.at(-1)).toContain('Comando no reconocido');
   });
 
-  it('should copy gift code to clipboard', async () => {
-    spyOn(navigator.clipboard, 'writeText').and.returnValue(Promise.resolve());
-    component.copyToClipboard();
-    expect(navigator.clipboard.writeText).toHaveBeenCalledWith(component.giftCode);
+  it('should trigger quick command execution', () => {
+    component.runQuickCommand('cd piano');
+    expect(component.activeSection).toBe('piano');
   });
 
-  it('should show copy feedback message', (done) => {
-    spyOn(navigator.clipboard, 'writeText').and.returnValue(Promise.resolve());
-    component.copyToClipboard();
-    setTimeout(() => {
-      expect(component.copyFeedback).toContain('Código copiado');
-      done();
-    }, 100);
+  it('should expose access key', () => {
+    expect(component.accessKey).toBe('EliabeOlah');
   });
 });
 

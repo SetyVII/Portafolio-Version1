@@ -1,127 +1,98 @@
-<div class="linux-terminal">
-  <!-- Header de terminal -->
-  <div class="terminal-header">
-    <div class="terminal-buttons">
-      <span class="button red"></span>
-      <span class="button yellow"></span>
-      <span class="button green"></span>
+<div class="terminal-page">
+  <header class="terminal-header">
+    <div class="window-controls">
+      <span class="control red"></span>
+      <span class="control yellow"></span>
+      <span class="control blue"></span>
     </div>
-    <div class="terminal-title">root@sistema-cumple:~#</div>
-  </div>
+    <div class="terminal-title">systemd-birthday.target · arch-terminal</div>
+  </header>
 
-  <!-- Contenido del terminal -->
-  <div class="terminal-body">
-    <!-- Matrix effect -->
-    <div class="matrix-effect">{{ displayText }}<span class="cursor"></span></div>
+  <section class="terminal-body">
+    <div class="status-line">{{ displayText }}<span class="cursor">▌</span></div>
 
-    <!-- Acceso restringido si no está desbloqueado -->
-    <div *ngIf="!isUnlocked" class="access-control">
-      <div class="command-line">$ sudo systemctl start birthday-mode</div>
-      <div class="command-output">
-        [sudo] password for cumple:
-        <input
-          type="password"
-          [(ngModel)]="password"
-          (keypress)="handleKeyPress($event)"
-          class="password-input"
-          placeholder="█████████"
-          autofocus
-        />
+    <div class="logos-row">
+      <div class="logo-card arch">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="Arch Linux logo">
+          <path d="M60 12L21 96h18l21-44 21 44h18L60 12z" fill="none" stroke="currentColor" stroke-width="5" />
+          <path d="M60 30l-9 19h18L60 30z" fill="currentColor" />
+        </svg>
+        <span>ARCH</span>
       </div>
-      <button (click)="verifyPassword()" class="execute-btn">EJECUTAR</button>
-      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
-      <div class="hint">
-        <span class="hint-text">Pista: Necesitas una clave especial para acceder...</span>
+      <div class="logo-card endeavour">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="EndeavourOS logo">
+          <circle cx="60" cy="60" r="36" fill="none" stroke="currentColor" stroke-width="5" />
+          <circle cx="60" cy="60" r="18" fill="none" stroke="currentColor" stroke-width="4" />
+          <path d="M40 60h40" stroke="currentColor" stroke-width="4" />
+        </svg>
+        <span>ENDEAVOUR</span>
       </div>
     </div>
 
-    <!-- Celebración cuando está desbloqueado -->
-    <div *ngIf="isUnlocked" class="celebration">
-      <div class="success-message">✓ Acceso concedido</div>
+    <div class="command-buttons">
+      <button type="button" (click)="runQuickCommand('ls')">ls</button>
+      <button type="button" (click)="runQuickCommand('cd clave')">cd clave</button>
+      <button type="button" (click)="runQuickCommand('cd mensaje')">cd mensaje</button>
+      <button type="button" (click)="runQuickCommand('cd piano')">cd piano</button>
+    </div>
 
-      <!-- Animaciones de Logos Linux -->
-      <div class="linux-animations">
-        <div class="arch-logo">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <polyline points="50,10 30,60 40,60 50,35 60,60 70,60" fill="none" stroke="currentColor" stroke-width="3"/>
-          </svg>
-          <span class="logo-text">ARCH</span>
-        </div>
-        <div class="endeavour-logo">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="3" stroke-dasharray="251" stroke-dashoffset="0"/>
-            <circle cx="50" cy="50" r="25" fill="none" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          <span class="logo-text">ENDEAVOUR</span>
-        </div>
-      </div>
+    <div class="command-input-row">
+      <span>user@arch-bday:~$</span>
+      <input
+        type="text"
+        [(ngModel)]="commandInput"
+        (keydown)="handleCommandKeydown($event)"
+        placeholder="Escribe un comando..."
+      />
+    </div>
 
-      <!-- Animación de Piano -->
-      <div class="piano-container">
-        <div class="piano">
-          <div class="piano-key white" style="animation-delay: 0s"></div>
-          <div class="piano-key black" style="animation-delay: 0.15s"></div>
-          <div class="piano-key white" style="animation-delay: 0.3s"></div>
-          <div class="piano-key black" style="animation-delay: 0.45s"></div>
-          <div class="piano-key white" style="animation-delay: 0.6s"></div>
-          <div class="piano-key white" style="animation-delay: 0.75s"></div>
-          <div class="piano-key black" style="animation-delay: 0.9s"></div>
-          <div class="piano-key white" style="animation-delay: 1.05s"></div>
-          <div class="piano-key black" style="animation-delay: 1.2s"></div>
-          <div class="piano-key white" style="animation-delay: 1.35s"></div>
-        </div>
-      </div>
+    <div class="terminal-log">
+      <div *ngFor="let log of terminalLogs">{{ log }}</div>
+    </div>
 
-      <pre class="ascii-art">
-╔═══════════════════════════════════════════╗
-║                                           ║
-║      ¡FELIZ CUMPLEAÑOS! 🎂                ║
-║                                           ║
-║   [████████████████████████████] 100%     ║
-║                                           ║
-║   SISTEMA DE CELEBRACIÓN ACTIVADO         ║
-║                                           ║
-╚═══════════════════════════════════════════╝
+    <section class="panel" *ngIf="activeSection === 'home'">
+      <h2>Directorio principal</h2>
+      <p>Usa comandos para navegar por esta celebración hacker.</p>
+      <code>ls · cd clave · cd mensaje · cd piano</code>
+    </section>
+
+    <section class="panel" *ngIf="activeSection === 'clave'">
+      <h2>cd clave</h2>
+      <p>Clave oficial del cumpleañero:</p>
+      <div class="key-box">{{ accessKey }}</div>
+    </section>
+
+    <section class="panel" *ngIf="activeSection === 'mensaje'">
+      <h2>cd mensaje</h2>
+      <p>{{ birthdayMessage }}</p>
+      <pre>
+systemd-analyze celebrate
+Loaded units: alegría.service
+Uptime: forever
+Status: feliz-cumpleaños.target active
       </pre>
+    </section>
 
-      <div class="gift-code-section">
-        <div class="gift-label">$ cat regalo.txt</div>
-        <div class="gift-code-container">
-          <div class="gift-code" (click)="copyToClipboard()">
-            <span class="code-prefix">CÓDIGO DE REGALO:</span>
-            <span class="code-value">{{ giftCode }}</span>
-          </div>
-          <div *ngIf="copyFeedback" class="copy-feedback">{{ copyFeedback }}</div>
-          <div class="copy-hint">💡 Click para copiar</div>
-        </div>
+    <section class="panel" *ngIf="activeSection === 'piano'">
+      <h2>cd piano</h2>
+      <p>Piano funcional: toca notas individuales o reproduce Happy Birthday.</p>
+
+      <div class="piano-row">
+        <button
+          type="button"
+          class="key"
+          *ngFor="let key of pianoKeys"
+          [class.active]="key.active"
+          (click)="playSingleNote(key.note)"
+        >
+          {{ key.note }}
+        </button>
       </div>
 
-      <div class="code-celebration">
-        <div class="line">
-          <span class="keyword">function</span> <span class="function">celebrate</span>() &#123;
-          <span class="brace">&#123;</span>
-        </div>
-        <div class="line indent-1">
-          <span class="keyword">console</span>.<span class="function">log</span>(<span class="string">"🎉 ¡Que disfrutes tu día especial!"</span>);
-        </div>
-        <div class="line indent-1">
-          <span class="keyword">return</span> <span class="string">"Infinitas alegrías"</span>;
-        </div>
-        <div class="line">
-          <span class="brace">&#125;</span>
-        </div>
-        <div class="line">celebrate();</div>
-      </div>
-
-      <div class="system-info">
-        <div>$ whoami</div>
-        <div class="output">Alguien muy especial 🌟</div>
-        <div>$ date</div>
-        <div class="output">El mejor día del año</div>
-        <div>$ fortune</div>
-        <div class="output">Que todos tus deseos se hagan realidad ✨</div>
-      </div>
-    </div>
-  </div>
+      <button type="button" class="play-btn" (click)="playHappyBirthday()">
+        ▶ Reproducir Happy Birthday
+      </button>
+    </section>
+  </section>
 </div>
