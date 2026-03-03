@@ -1,10 +1,14 @@
 .terminal-page {
   min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   background: radial-gradient(circle at top, #141c3a 0%, #070b1a 60%, #04060f 100%);
   color: #9cc7ff;
   font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace;
-  padding: 1.5rem;
+  padding: 1rem;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .terminal-header {
@@ -46,12 +50,16 @@
 }
 
 .terminal-body {
+  flex: 1;
   border: 1px solid #2d4f86;
   border-top: none;
   border-radius: 0 0 10px 10px;
   padding: 1.2rem;
   background: rgba(8, 15, 36, 0.92);
   backdrop-filter: blur(2px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .status-line {
@@ -99,12 +107,10 @@
 
 .logo-card.arch {
   color: #3ea6ff;
-  animation: floatArch 3s ease-in-out infinite;
 }
 
 .logo-card.endeavour {
   color: #a58bff;
-  animation: spinEndeavour 8s linear infinite;
 }
 
 .logo-card:hover {
@@ -112,22 +118,66 @@
   box-shadow: 0 10px 25px rgba(62, 166, 255, 0.25);
 }
 
-@keyframes floatArch {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
+.sudo-screen,
+.main-terminal {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  flex: 1;
+  overflow-y: auto;
 }
 
-@keyframes spinEndeavour {
-  from {
-    transform: rotate(0deg);
+.sudo-prompt {
+  border: 1px solid #2f548f;
+  border-radius: 10px;
+  background: rgba(22, 42, 82, 0.3);
+  padding: 1.5rem;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.sudo-msg {
+  color: #7cb9ff;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+.sudo-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+  color: #7cb9ff;
+}
+
+.sudo-input-row input {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #2d4f86;
+  border-radius: 8px;
+  background: #0a1530;
+  color: #cde6ff;
+  padding: 0.5rem 0.7rem;
+}
+
+.sudo-input-row input:focus {
+  outline: none;
+  border-color: #61b6ff;
+  box-shadow: 0 0 0 1px #61b6ff inset;
+}
+
+.sudo-error {
+  color: #ff6b9d;
+  font-weight: bold;
+  animation: pulse 0.5s;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    opacity: 0.5;
   }
 }
 

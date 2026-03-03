@@ -9,90 +9,131 @@
   </header>
 
   <section class="terminal-body">
-    <div class="status-line">{{ displayText }}<span class="cursor">▌</span></div>
+    <!-- Pantalla de autenticación sudo -->
+    <div *ngIf="!isAuthenticated" class="sudo-screen">
+      <div class="status-line">{{ displayText }}<span class="cursor">▌</span></div>
+      
+      <div class="logos-row">
+        <div class="logo-card arch">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="Arch Linux logo">
+            <path d="M60 12L21 96h18l21-44 21 44h18L60 12z" fill="none" stroke="currentColor" stroke-width="5" />
+            <path d="M60 30l-9 19h18L60 30z" fill="currentColor" />
+          </svg>
+          <span>ARCH</span>
+        </div>
 
-    <div class="logos-row">
-      <div class="logo-card arch">
-        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="Arch Linux logo">
-          <path d="M60 12L21 96h18l21-44 21 44h18L60 12z" fill="none" stroke="currentColor" stroke-width="5" />
-          <path d="M60 30l-9 19h18L60 30z" fill="currentColor" />
-        </svg>
-        <span>ARCH</span>
+        <div class="logo-card endeavour">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="EndeavourOS logo">
+            <circle cx="60" cy="60" r="36" fill="none" stroke="currentColor" stroke-width="5" />
+            <circle cx="60" cy="60" r="18" fill="none" stroke="currentColor" stroke-width="4" />
+            <path d="M40 60h40" stroke="currentColor" stroke-width="4" />
+          </svg>
+          <span>ENDEAVOUR</span>
+        </div>
       </div>
 
-      <div class="logo-card endeavour">
-        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="EndeavourOS logo">
-          <circle cx="60" cy="60" r="36" fill="none" stroke="currentColor" stroke-width="5" />
-          <circle cx="60" cy="60" r="18" fill="none" stroke="currentColor" stroke-width="4" />
-          <path d="M40 60h40" stroke="currentColor" stroke-width="4" />
-        </svg>
-        <span>ENDEAVOUR</span>
+      <div class="sudo-prompt">
+        <div class="sudo-msg">sudo systemctl start birthday-celebration.service</div>
+        <div class="sudo-input-row">
+          <span>[sudo] password for Eliabe:</span>
+          <input
+            type="password"
+            [(ngModel)]="sudoPassword"
+            (keydown)="handleSudoKeydown($event)"
+            placeholder="••••••"
+            autofocus
+          />
+        </div>
+        <div *ngIf="showSudoError" class="sudo-error">Contraseña incorrecta.</div>
       </div>
     </div>
 
-    <div class="command-buttons">
-      <button type="button" (click)="runQuickCommand('ls')">ls</button>
-      <button type="button" (click)="runQuickCommand('cd clave')">cd clave</button>
-      <button type="button" (click)="runQuickCommand('cd mensaje')">cd mensaje</button>
-      <button type="button" (click)="runQuickCommand('cd piano')">cd piano</button>
-    </div>
+    <!-- Terminal principal (después de autenticar) -->
+    <div *ngIf="isAuthenticated" class="main-terminal">
+      <div class="status-line">{{ displayText }}<span class="cursor">▌</span></div>
 
-    <div class="command-input-row">
-      <span>user@arch-bday:~$</span>
-      <input
-        type="text"
-        [(ngModel)]="commandInput"
-        (keydown)="handleCommandKeydown($event)"
-        placeholder="Escribe un comando..."
-      />
-    </div>
+      <div class="logos-row">
+        <div class="logo-card arch">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="Arch Linux logo">
+            <path d="M60 12L21 96h18l21-44 21 44h18L60 12z" fill="none" stroke="currentColor" stroke-width="5" />
+            <path d="M60 30l-9 19h18L60 30z" fill="currentColor" />
+          </svg>
+          <span>ARCH</span>
+        </div>
 
-    <div class="terminal-log">
-      <div *ngFor="let log of terminalLogs">{{ log }}</div>
-    </div>
+        <div class="logo-card endeavour">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-label="EndeavourOS logo">
+            <circle cx="60" cy="60" r="36" fill="none" stroke="currentColor" stroke-width="5" />
+            <circle cx="60" cy="60" r="18" fill="none" stroke="currentColor" stroke-width="4" />
+            <path d="M40 60h40" stroke="currentColor" stroke-width="4" />
+          </svg>
+          <span>ENDEAVOUR</span>
+        </div>
+      </div>
 
-    <section class="panel" *ngIf="activeSection === 'home'">
-      <h2>Directorio principal</h2>
-      <p>Usa comandos para navegar por esta celebración hacker.</p>
-      <code>ls · cd clave · cd mensaje · cd piano</code>
-    </section>
+      <div class="command-buttons">
+        <button type="button" (click)="runQuickCommand('ls')">ls</button>
+        <button type="button" (click)="runQuickCommand('cd clave')">cd clave</button>
+        <button type="button" (click)="runQuickCommand('cd mensaje')">cd mensaje</button>
+        <button type="button" (click)="runQuickCommand('cd piano')">cd piano</button>
+      </div>
 
-    <section class="panel" *ngIf="activeSection === 'clave'">
-      <h2>cd clave</h2>
-      <p>Clave oficial del cumpleañero:</p>
-      <div class="key-box">{{ accessKey }}</div>
-    </section>
+      <div class="command-input-row">
+        <span>eliabe@arch-bday:~$</span>
+        <input
+          type="text"
+          [(ngModel)]="commandInput"
+          (keydown)="handleCommandKeydown($event)"
+          placeholder="Escribe un comando..."
+        />
+      </div>
 
-    <section class="panel" *ngIf="activeSection === 'mensaje'">
-      <h2>cd mensaje</h2>
-      <p>{{ birthdayMessage }}</p>
-      <pre>
+      <div class="terminal-log">
+        <div *ngFor="let log of terminalLogs">{{ log }}</div>
+      </div>
+
+      <section class="panel" *ngIf="activeSection === 'home'">
+        <h2>Directorio principal</h2>
+        <p>Usa comandos para navegar.</p>
+      </section>
+
+      <section class="panel" *ngIf="activeSection === 'clave'">
+        <h2>cd clave</h2>
+        <p>Clave de acceso:</p>
+        <div class="key-box">{{ accessKey }}</div>
+      </section>
+
+      <section class="panel" *ngIf="activeSection === 'mensaje'">
+        <h2>cd mensaje</h2>
+        <p>{{ birthdayMessage }}</p>
+        <pre>
 systemd-analyze celebrate
-Loaded units: alegría.service
+Loaded units: alegria.service
 Uptime: forever
-Status: feliz-cumpleaños.target active
-      </pre>
-    </section>
+Status: feliz-cumpleanos.target active
+        </pre>
+      </section>
 
-    <section class="panel" *ngIf="activeSection === 'piano'">
-      <h2>cd piano</h2>
-      <p>Piano funcional: toca notas individuales o reproduce Happy Birthday.</p>
+      <section class="panel" *ngIf="activeSection === 'piano'">
+        <h2>cd piano</h2>
+        <p>Piano funcional: toca notas individuales o reproduce Happy Birthday.</p>
 
-      <div class="piano-row">
-        <button
-          type="button"
-          class="key"
-          *ngFor="let key of pianoKeys"
-          [class.active]="key.active"
-          (click)="playSingleNote(key.note)"
-        >
-          {{ key.note }}
+        <div class="piano-row">
+          <button
+            type="button"
+            class="key"
+            *ngFor="let key of pianoKeys"
+            [class.active]="key.active"
+            (click)="playSingleNote(key.note)"
+          >
+            {{ key.note }}
+          </button>
+        </div>
+
+        <button type="button" class="play-btn" (click)="playHappyBirthday()">
+          ▶ Reproducir Happy Birthday
         </button>
-      </div>
-
-      <button type="button" class="play-btn" (click)="playHappyBirthday()">
-        ▶ Reproducir Happy Birthday
-      </button>
-    </section>
+      </section>
+    </div>
   </section>
 </div>

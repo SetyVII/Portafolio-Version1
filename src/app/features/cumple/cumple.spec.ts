@@ -20,11 +20,25 @@ describe('Cumple', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize with home section', () => {
-    expect(component.activeSection).toBe('home');
+  it('should initialize with unauthenticated state', () => {
+    expect(component.isAuthenticated).toBeFalse();
+  });
+
+  it('should authenticate with correct sudo password', () => {
+    component.sudoPassword = 'Eliabe';
+    component.verifySudo();
+    expect(component.isAuthenticated).toBeTrue();
+  });
+
+  it('should show error with incorrect sudo password', () => {
+    component.sudoPassword = 'wrongpassword';
+    component.verifySudo();
+    expect(component.isAuthenticated).toBeFalse();
+    expect(component.showSudoError).toBeTrue();
   });
 
   it('should execute ls command', () => {
+    component.isAuthenticated = true;
     component.commandInput = 'ls';
     component.executeCommand();
 
@@ -33,6 +47,7 @@ describe('Cumple', () => {
   });
 
   it('should navigate to clave section with cd clave', () => {
+    component.isAuthenticated = true;
     component.commandInput = 'cd clave';
     component.executeCommand();
 
@@ -40,6 +55,7 @@ describe('Cumple', () => {
   });
 
   it('should navigate to mensaje section with cd mensaje', () => {
+    component.isAuthenticated = true;
     component.commandInput = 'cd mensaje';
     component.executeCommand();
 
@@ -47,6 +63,7 @@ describe('Cumple', () => {
   });
 
   it('should navigate to piano section with cd piano', () => {
+    component.isAuthenticated = true;
     component.commandInput = 'cd piano';
     component.executeCommand();
 
@@ -54,21 +71,23 @@ describe('Cumple', () => {
   });
 
   it('should keep section for unknown commands and log error', () => {
+    component.isAuthenticated = true;
     const currentSection = component.activeSection;
     component.commandInput = 'invalid';
     component.executeCommand();
 
     expect(component.activeSection).toBe(currentSection);
-    expect(component.terminalLogs.at(-1)).toContain('Comando no reconocido');
+    expect(component.terminalLogs.at(-1)).toContain('Tip');
   });
 
   it('should trigger quick command execution', () => {
+    component.isAuthenticated = true;
     component.runQuickCommand('cd piano');
     expect(component.activeSection).toBe('piano');
   });
 
   it('should expose access key', () => {
-    expect(component.accessKey).toBe('EliabeOlah');
+    expect(component.accessKey).toBe('Eliabe');
   });
 });
 

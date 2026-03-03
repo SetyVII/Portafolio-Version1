@@ -11,11 +11,14 @@ import { FormsModule } from '@angular/forms';
 })
 export class Cumple implements OnInit, OnDestroy {
   commandInput = '';
+  sudoPassword = '';
+  isAuthenticated = false;
   activeSection: 'home' | 'clave' | 'mensaje' | 'piano' = 'home';
   terminalLogs: string[] = [];
-  accessKey = 'EliabeOlah';
-  birthdayMessage = 'Feliz cumpleaños. Que tu sistema siempre bootee con alegría, estabilidad y nuevas metas cumplidas.';
+  accessKey = 'Eliabe';
+  birthdayMessage = 'Feliz cumpleaños Eliabiño, no estes triste, que aunque antes estuvieras mal, ahora estas mejor y creo y espero que en un futuro tus anhelos y deseos se puedan cumplir, Happy Birthday Eliabiño.';
   displayText = '';
+  showSudoError = false;
 
   pianoKeys = [
     { note: 'C4', frequency: 261.63, active: false },
@@ -34,8 +37,7 @@ export class Cumple implements OnInit, OnDestroy {
   
   ngOnInit(): void {
     this.terminalLogs = [
-      'systemd[1]: birthday-terminal.service started.',
-      'Tip: usa ls, cd clave, cd mensaje, cd piano'
+      'systemd[1]: birthday-terminal.service started.'
     ];
     this.startMatrixEffect();
   }
@@ -53,6 +55,23 @@ export class Cumple implements OnInit, OnDestroy {
   handleCommandKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       this.executeCommand();
+    }
+  }
+
+  handleSudoKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      this.verifySudo();
+    }
+  }
+
+  verifySudo(): void {
+    if (this.sudoPassword === this.accessKey) {
+      this.isAuthenticated = true;
+      this.showSudoError = false;
+      this.terminalLogs.push('[sudo] Acceso concedido.');
+    } else {
+      this.showSudoError = true;
+      this.sudoPassword = '';
     }
   }
 
@@ -82,7 +101,8 @@ export class Cumple implements OnInit, OnDestroy {
       this.activeSection = 'piano';
       this.terminalLogs.push('Entrando en /piano');
     } else {
-      this.terminalLogs.push('Comando no reconocido. Usa: ls, cd clave, cd mensaje, cd piano');
+      this.terminalLogs.push(`bash: ${normalized}: comando no encontrado`);
+      this.terminalLogs.push('Tip: Debes usar los comandos ls, cd');
     }
 
     this.commandInput = '';
